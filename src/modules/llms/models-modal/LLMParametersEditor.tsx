@@ -74,8 +74,12 @@ export function llmParametersFilterEffortOptions<T extends { value: string, labe
 
 const _oaiReasoningModeOptions = [
   { value: 'pro', label: 'Pro', description: 'Additional model work for the hardest problems' } as const,
+  { value: _UNSPECIFIED, label: 'Default', description: 'Standard reasoning (mode omitted)' } as const,
+] as const;
+// 'standard' equals the omitted default and is no longer pickable; kept only so an already-stored value still renders
+const _oaiReasoningModeLegacyOptions = [
+  ..._oaiReasoningModeOptions,
   { value: 'standard', label: 'Standard', description: 'Regular reasoning' } as const,
-  { value: _UNSPECIFIED, label: 'Default', description: 'Default (Standard)' } as const,
 ] as const;
 
 const _oaiServiceTierOptions = [
@@ -487,7 +491,7 @@ export function LLMParametersEditor(props: {
           if (value === _UNSPECIFIED || !value) onRemoveParameter('llmVndOaiReasoningMode');
           else onChangeParameter({ llmVndOaiReasoningMode: value });
         }}
-        options={_oaiReasoningModeOptions}
+        options={llmVndOaiReasoningMode === 'standard' ? _oaiReasoningModeLegacyOptions : _oaiReasoningModeOptions}
       />
     )}
     {/* OpenAI Service Tier */}

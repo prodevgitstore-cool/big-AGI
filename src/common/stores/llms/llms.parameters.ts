@@ -407,7 +407,7 @@ export const DModelParameterRegistry = {
     type: 'enum',
     description: 'Pro mode performs additional model work for difficult tasks, billed at standard token rates',
     values: ['standard', 'pro'],
-    // undefined means vendor default ('standard')
+    // undefined means vendor default ('standard'); 'standard' stays a legal stored value but is no longer offered by the pickers
   }),
 
   llmVndOaiServiceTier: _enumDef({
